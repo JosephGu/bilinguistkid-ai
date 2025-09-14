@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 import os
 from fastapi import FastAPI, status
 import sys
