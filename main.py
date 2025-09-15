@@ -33,7 +33,7 @@ def get_fact(country: str, age: int, gender: str):
         # 调用API
         response = client.chat.completions.create(
             model="deepseek-chat",
-            temperature=1,
+            temperature=1.5,
             messages=[
                 {
                     "role": "system",
@@ -73,6 +73,9 @@ def get_fact(country: str, age: int, gender: str):
             import base64
 
             audio_base64 = base64.b64encode(result.get_audio_data()).decode("utf-8")
+            # remove the audio file
+            if os.path.exists(output_file):
+                os.remove(output_file)
 
             print(
                 "SUCCESS: get audio data: %dbytes in %s"
