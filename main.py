@@ -26,13 +26,15 @@ def get_fact(country: str, age: int, gender: str):
             }, status.HTTP_400_BAD_REQUEST
 
         # 创建OpenAI客户端
-        client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+        # client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+        client = OpenAI(api_key=ali_key, base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")
         genderChinese = "小男孩" if gender == "Male" else "小女孩"
         # logger.info(f"准备调用OpenAI API: 为{age}岁{genderChinese}生成关于{country}的有趣事实")
 
         # 调用API
         response = client.chat.completions.create(
-            model="deepseek-chat",
+            # model="deepseek-chat",
+            model="qwen-flash",
             temperature=1.5,
             messages=[
                 {
@@ -41,7 +43,7 @@ def get_fact(country: str, age: int, gender: str):
                 },
                 {
                     "role": "user",
-                    "content": f"我是{age}岁{genderChinese}，我想知道关于{country}的有趣的事实，请根据我的年龄用英语给出我的认知以内的小趣事，最多50个单词",
+                    "content": f"我是{age}岁{genderChinese}，我想知道关于{country}的有趣的事实，请根据我的年龄用英语给出我的认知以内的小趣事，最多60个单词",
                 },
             ],
             stream=False,
